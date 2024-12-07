@@ -8,15 +8,20 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import com.github.khshourov.dictionaryscraper.enums.ReadingPurpose;
 import com.github.khshourov.dictionaryscraper.enums.Region;
+import com.github.khshourov.dictionaryscraper.enums.Source;
+import com.github.khshourov.dictionaryscraper.interfaces.DictionaryScraper;
 import com.github.khshourov.dictionaryscraper.interfaces.Reader;
+import com.github.khshourov.dictionaryscraper.interfaces.Scraper;
 import com.github.khshourov.dictionaryscraper.mocks.MockCambridgeReader;
 import com.github.khshourov.dictionaryscraper.mocks.TimeoutReader;
 import com.github.khshourov.dictionaryscraper.models.CategoryMeaningEntry;
 import com.github.khshourov.dictionaryscraper.models.DictionaryEntry;
+import com.github.khshourov.dictionaryscraper.models.DictionaryWord;
 import com.github.khshourov.dictionaryscraper.models.IpaInfo;
 import com.github.khshourov.dictionaryscraper.models.ReaderResponse;
 import com.github.khshourov.dictionaryscraper.models.WordMeaning;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -33,6 +38,38 @@ class CambridgeScraperTest {
   @BeforeEach
   void init() {
     scraper = new CambridgeScraper();
+  }
+
+  @Nested
+  class WhenRegister {
+    @Test
+    void scraperShouldRegisterItSelfToDictionaryScraper() {
+      MockDictionaryScraper dictionaryScraper = new MockDictionaryScraper();
+
+      scraper.register(dictionaryScraper);
+
+      assertEquals(Source.CAMBRIDGE, dictionaryScraper.getRegisterWith().get(0));
+      assertEquals(scraper, dictionaryScraper.getRegisterWith().get(1));
+    }
+
+    private static class MockDictionaryScraper implements DictionaryScraper {
+      private final List<Object> registerWith = new ArrayList<>();
+
+      @Override
+      public void registerScraper(Source source, Scraper scraper) {
+        this.registerWith.add(source);
+        this.registerWith.add(scraper);
+      }
+
+      @Override
+      public DictionaryWord search(String word, Source source) {
+        return null;
+      }
+
+      public List<Object> getRegisterWith() {
+        return this.registerWith;
+      }
+    }
   }
 
   @Nested

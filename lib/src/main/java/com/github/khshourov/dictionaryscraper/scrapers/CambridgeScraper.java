@@ -2,6 +2,8 @@ package com.github.khshourov.dictionaryscraper.scrapers;
 
 import com.github.khshourov.dictionaryscraper.enums.ReadingPurpose;
 import com.github.khshourov.dictionaryscraper.enums.Region;
+import com.github.khshourov.dictionaryscraper.enums.Source;
+import com.github.khshourov.dictionaryscraper.interfaces.DictionaryScraper;
 import com.github.khshourov.dictionaryscraper.interfaces.Reader;
 import com.github.khshourov.dictionaryscraper.interfaces.Scraper;
 import com.github.khshourov.dictionaryscraper.models.CategoryMeaningEntry;
@@ -22,6 +24,11 @@ import org.jsoup.nodes.Element;
 
 public class CambridgeScraper implements Scraper {
   private Reader reader;
+
+  @Override
+  public void register(DictionaryScraper dictionaryScraper) {
+    dictionaryScraper.registerScraper(Source.CAMBRIDGE, this);
+  }
 
   @Override
   public void setReader(Reader reader) {
