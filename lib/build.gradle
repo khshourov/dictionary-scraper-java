@@ -36,6 +36,9 @@ dependencies {
 
     // jsoup HTML parser library @ https://jsoup.org/
     implementation libs.jsoup
+
+    // The uber-fast, ultra-lightweight classpath and module scanner for JVM languages
+    implementation libs.classgraph
 }
 
 checkstyle {

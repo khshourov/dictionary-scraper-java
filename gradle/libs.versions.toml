@@ -7,12 +7,14 @@ guava = "33.2.1-jre"
 junit-jupiter = "5.10.3"
 spotless = "6.25.0"
 jsoup = "1.18.3"
+classgraph = "4.8.179"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+classgraph = { module = "io.github.classgraph:classgraph", version.ref = "classgraph" }
 
 [plugins]
 checkstyle = { id = "checkstyle" }

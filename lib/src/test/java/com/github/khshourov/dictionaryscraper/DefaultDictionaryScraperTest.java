@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.github.khshourov.dictionaryscraper.enums.BaseSource;
 import com.github.khshourov.dictionaryscraper.enums.Region;
 import com.github.khshourov.dictionaryscraper.mocks.MockScraper;
 import com.github.khshourov.dictionaryscraper.mocks.MockSource;
@@ -27,6 +28,12 @@ class DefaultDictionaryScraperTest {
     dictionaryScraper = new DefaultDictionaryScraper();
   }
 
+  @Test
+  void scraperClassesUnderScrapersPackageShouldBeLoadedOnInitializationTime() {
+    assertEquals(1, this.dictionaryScraper.getRegisteredSources().size());
+    assertEquals(BaseSource.CAMBRIDGE, this.dictionaryScraper.getRegisteredSources().get(0));
+  }
+
   @Nested
   class WhenRegisterScraper {
     @Test
@@ -35,8 +42,9 @@ class DefaultDictionaryScraperTest {
 
       dictionaryScraper.registerScraper(MockSource.MOCK_SOURCE_1, scraper);
 
-      assertEquals(1, dictionaryScraper.getRegisteredSources().size());
-      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(0));
+      assertEquals(2, dictionaryScraper.getRegisteredSources().size());
+      assertEquals(BaseSource.CAMBRIDGE, dictionaryScraper.getRegisteredSources().get(0));
+      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(1));
     }
 
     @Test
@@ -64,7 +72,7 @@ class DefaultDictionaryScraperTest {
   class WhenGetRegisteredSources {
     @Test
     void emptyListShouldReturnIfNoScraperIsRegistered() {
-      assertEquals(0, dictionaryScraper.getRegisteredSources().size());
+      assertEquals(1, dictionaryScraper.getRegisteredSources().size());
     }
 
     @Test
@@ -73,16 +81,18 @@ class DefaultDictionaryScraperTest {
 
       dictionaryScraper.registerScraper(MockSource.MOCK_SOURCE_1, mockScraper1);
 
-      assertEquals(1, dictionaryScraper.getRegisteredSources().size());
-      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(0));
+      assertEquals(2, dictionaryScraper.getRegisteredSources().size());
+      assertEquals(BaseSource.CAMBRIDGE, dictionaryScraper.getRegisteredSources().get(0));
+      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(1));
 
       MockScraper mockScraper2 = new MockScraper();
 
       dictionaryScraper.registerScraper(MockSource.MOCK_SOURCE_2, mockScraper2);
 
-      assertEquals(2, dictionaryScraper.getRegisteredSources().size());
-      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(0));
-      assertEquals(MockSource.MOCK_SOURCE_2, dictionaryScraper.getRegisteredSources().get(1));
+      assertEquals(3, dictionaryScraper.getRegisteredSources().size());
+      assertEquals(BaseSource.CAMBRIDGE, dictionaryScraper.getRegisteredSources().get(0));
+      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(1));
+      assertEquals(MockSource.MOCK_SOURCE_2, dictionaryScraper.getRegisteredSources().get(2));
     }
 
     @Test
@@ -94,9 +104,10 @@ class DefaultDictionaryScraperTest {
       dictionaryScraper.registerScraper(MockSource.MOCK_SOURCE_1, mockScraper);
       dictionaryScraper.registerScraper(MockSource.MOCK_SOURCE_2, mockScraper);
 
-      assertEquals(2, dictionaryScraper.getRegisteredSources().size());
-      assertEquals(MockSource.MOCK_SOURCE_2, dictionaryScraper.getRegisteredSources().get(0));
-      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(1));
+      assertEquals(3, dictionaryScraper.getRegisteredSources().size());
+      assertEquals(BaseSource.CAMBRIDGE, dictionaryScraper.getRegisteredSources().get(0));
+      assertEquals(MockSource.MOCK_SOURCE_2, dictionaryScraper.getRegisteredSources().get(1));
+      assertEquals(MockSource.MOCK_SOURCE_1, dictionaryScraper.getRegisteredSources().get(2));
     }
   }
 
