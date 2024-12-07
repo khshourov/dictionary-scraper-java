@@ -39,6 +39,10 @@ dependencies {
 
     // The uber-fast, ultra-lightweight classpath and module scanner for JVM languages
     implementation libs.classgraph
+
+    //  Gson is a Java library that can be used to convert Java Objects into their JSON representation.
+    //  It can also be used to convert a JSON string to an equivalent Java object.
+    implementation libs.gson
 }
 
 checkstyle {
