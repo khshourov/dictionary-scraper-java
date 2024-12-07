@@ -122,7 +122,7 @@ class DefaultDictionaryScraperTest {
               IllegalArgumentException.class,
               () -> dictionaryScraper.search(searchWord, MockSource.MOCK_SOURCE_1));
       assertEquals(
-          "No scraper has been registered for this source: " + MockSource.MOCK_SOURCE_1.getValue(),
+          "No scraper has been registered for this source: " + MockSource.MOCK_SOURCE_1.name(),
           exception.getMessage());
     }
 

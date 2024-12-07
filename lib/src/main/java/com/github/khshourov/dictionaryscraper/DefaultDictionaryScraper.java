@@ -73,7 +73,7 @@ public class DefaultDictionaryScraper implements DictionaryScraper {
   public DictionaryWord search(String word, Source source) {
     if (!this.scrapers.containsKey(source)) {
       throw new IllegalArgumentException(
-          "No scraper has been registered for this source: " + source.getValue());
+          "No scraper has been registered for this source: " + source);
     }
 
     try {

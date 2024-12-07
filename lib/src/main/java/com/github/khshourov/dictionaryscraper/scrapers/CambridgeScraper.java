@@ -103,7 +103,7 @@ public class CambridgeScraper implements Scraper {
 
               for (RegionWiseIpaInfo ipaInfo : regionWiseIpaInfo) {
                 for (String partsOfSpeech : partsOfSpeeches) {
-                  Region region = Region.fromValue(ipaInfo.region);
+                  Region region = Region.valueOf(ipaInfo.region.toUpperCase());
 
                   if (!ipaListings.containsKey(region)) {
                     ipaListings.put(region, new ArrayList<>());

@@ -3,17 +3,11 @@ package com.github.khshourov.dictionaryscraper.mocks;
 import com.github.khshourov.dictionaryscraper.interfaces.Source;
 
 public enum MockSource implements Source {
-  MOCK_SOURCE_1("MockSource1"),
-  MOCK_SOURCE_2("MockSource2");
-
-  private final String value;
-
-  MockSource(String value) {
-    this.value = value;
-  }
+  MOCK_SOURCE_1,
+  MOCK_SOURCE_2;
 
   @Override
   public String getValue() {
-    return this.value;
+    return this.name();
   }
 }

@@ -3,15 +3,10 @@ package com.github.khshourov.dictionaryscraper.enums;
 import com.github.khshourov.dictionaryscraper.interfaces.Source;
 
 public enum BaseSource implements Source {
-  CAMBRIDGE("CAMBRIDGE");
+  CAMBRIDGE;
 
-  private final String value;
-
-  BaseSource(String value) {
-    this.value = value;
-  }
-
+  @Override
   public String getValue() {
-    return value;
+    return this.name();
   }
 }
