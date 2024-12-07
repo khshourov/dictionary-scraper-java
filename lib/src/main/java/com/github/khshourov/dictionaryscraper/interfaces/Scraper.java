@@ -9,6 +9,6 @@ public interface Scraper {
   DictionaryEntry scrape(String word) throws IOException;
 
   default String cleanWord(String word) {
-    return null;
+    return word;
   }
 }
