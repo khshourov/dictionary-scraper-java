@@ -1,11 +1,13 @@
 package com.github.khshourov.dictionaryscraper.enums;
 
-public enum Source {
+import com.github.khshourov.dictionaryscraper.interfaces.Source;
+
+public enum BaseSource implements Source {
   CAMBRIDGE("CAMBRIDGE");
 
   private final String value;
 
-  Source(String value) {
+  BaseSource(String value) {
     this.value = value;
   }
 

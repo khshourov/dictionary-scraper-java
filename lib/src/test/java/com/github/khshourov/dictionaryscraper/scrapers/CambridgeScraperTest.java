@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+import com.github.khshourov.dictionaryscraper.enums.BaseSource;
 import com.github.khshourov.dictionaryscraper.enums.ReadingPurpose;
 import com.github.khshourov.dictionaryscraper.enums.Region;
-import com.github.khshourov.dictionaryscraper.enums.Source;
 import com.github.khshourov.dictionaryscraper.interfaces.DictionaryScraper;
 import com.github.khshourov.dictionaryscraper.interfaces.Reader;
 import com.github.khshourov.dictionaryscraper.interfaces.Scraper;
+import com.github.khshourov.dictionaryscraper.interfaces.Source;
 import com.github.khshourov.dictionaryscraper.mocks.MockCambridgeReader;
 import com.github.khshourov.dictionaryscraper.mocks.TimeoutReader;
 import com.github.khshourov.dictionaryscraper.models.CategoryMeaningEntry;
@@ -48,7 +49,7 @@ class CambridgeScraperTest {
 
       scraper.register(dictionaryScraper);
 
-      assertEquals(Source.CAMBRIDGE, dictionaryScraper.getRegisterWith().get(0));
+      assertEquals(BaseSource.CAMBRIDGE, dictionaryScraper.getRegisterWith().get(0));
       assertEquals(scraper, dictionaryScraper.getRegisterWith().get(1));
     }
 
