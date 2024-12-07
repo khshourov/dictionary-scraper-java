@@ -33,6 +33,9 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation libs.guava
+
+    // jsoup HTML parser library @ https://jsoup.org/
+    implementation libs.jsoup
 }
 
 checkstyle {

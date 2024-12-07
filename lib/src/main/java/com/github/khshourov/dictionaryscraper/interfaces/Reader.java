@@ -7,6 +7,10 @@ import java.io.IOException;
 public abstract class Reader {
   protected String baseUri;
 
+  public String getBaseUri() {
+    return this.baseUri;
+  }
+
   public abstract ReaderResponse read(String word, ReadingPurpose purpose) throws IOException;
 
   public void afterPropertiesSet() {
