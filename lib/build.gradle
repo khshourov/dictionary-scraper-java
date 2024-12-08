@@ -9,6 +9,12 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
 
+    // Tool for generating code coverage reports
+    id 'jacoco'
+
+    // Mutation testing
+    alias libs.plugins.pitest
+
     // The Checkstyle plugin performs quality checks on your project’s Java source files using Checkstyle and
     // generates reports from these checks.
     alias libs.plugins.checkstyle
@@ -43,6 +49,16 @@ dependencies {
     //  Gson is a Java library that can be used to convert Java Objects into their JSON representation.
     //  It can also be used to convert a JSON string to an equivalent Java object.
     implementation libs.gson
+}
+
+pitest {
+    junit5PluginVersion = '1.2.0'
+    targetClasses = [
+            'com.github.khshourov.dictionaryscraper.*'
+    ] // Classes to mutate
+    targetTests = [
+            'com.github.khshourov.dictionaryscraper.*'
+    ]
 }
 
 checkstyle {
