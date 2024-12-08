@@ -11,6 +11,7 @@ import com.github.khshourov.dictionaryscraper.models.DictionaryEntry;
 import com.github.khshourov.dictionaryscraper.models.IpaInfo;
 import com.github.khshourov.dictionaryscraper.models.ReaderResponse;
 import com.github.khshourov.dictionaryscraper.models.WordMeaning;
+import com.github.khshourov.dictionaryscraper.readers.CambridgeReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,10 @@ import org.jsoup.nodes.Element;
 
 public class CambridgeScraper implements Scraper {
   private Reader reader;
+
+  public CambridgeScraper() {
+    this.reader = new CambridgeReader("https://dictionary.cambridge.org");
+  }
 
   @Override
   public void register(DictionaryScraper dictionaryScraper) {
