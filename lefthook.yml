@@ -1,9 +1,9 @@
 pre-commit:
   commands:
     build:
-      run: ./gradlew build
+      run: ./gradlew build -x integrationTest
 
 pre-push:
   commands:
     test:
-      run: ./gradlew test
+      run: ./gradlew test integrationTest
