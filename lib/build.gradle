@@ -6,6 +6,8 @@
  */
 
 plugins {
+    id 'base'
+
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
 
@@ -52,6 +54,13 @@ dependencies {
     //  It can also be used to convert a JSON string to an equivalent Java object.
     implementation libs.gson
 }
+
+base {
+    archivesName = rootProject.name
+}
+
+version = '0.0.1'
+group = 'com.github.khshourov'
 
 pitest {
     junit5PluginVersion = '1.2.0'
