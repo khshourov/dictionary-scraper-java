@@ -10,6 +10,7 @@ jsoup = "1.18.3"
 classgraph = "4.8.179"
 gson = "2.11.0"
 pitest = "1.15.0"
+sonarqube = "6.0.1.5171"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
@@ -23,3 +24,4 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 checkstyle = { id = "checkstyle" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 pitest = { id = "info.solidsoft.pitest", version.ref = "pitest" }
+sonarqube = { id = "org.sonarqube", version.ref = "sonarqube" }

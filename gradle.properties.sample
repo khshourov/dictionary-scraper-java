@@ -1,0 +1,3 @@
+systemProp.sonar.host.url=<sonar-host>
+systemProp.sonar.projectKey=<project-key>
+systemProp.sonar.token=<project-token>

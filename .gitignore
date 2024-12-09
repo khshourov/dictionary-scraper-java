@@ -25,3 +25,6 @@ build
 
 # Ignore Intellij IDE
 .idea
+
+# Contains SonarQube project-key, token etc
+gradle.properties

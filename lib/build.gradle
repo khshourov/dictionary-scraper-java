@@ -25,6 +25,9 @@ plugins {
 
     // Formatting codes
     alias libs.plugins.spotless
+
+    // To help analyzing projects with SonarQube
+    alias libs.plugins.sonarqube
 }
 
 repositories {
@@ -100,6 +103,26 @@ spotless {
         formatAnnotations()  // fixes formatting of type annotations
 
         // licenseHeader '/* (C) $YEAR */' // or licenseHeaderFile
+    }
+}
+
+tasks.jacocoTestReport {
+    reports {
+        // SonarQube only understands XML
+        xml.required.set true
+        html.required.set false
+        csv.required.set false
+    }
+}
+
+sonar {
+    properties {
+        property 'sonar.projectName', base.archivesName
+        property 'sonar.sources', 'src/main/java'
+        property 'sonar.tests', 'src/test/java,src/integrationTest/java'
+        property 'sonar.host.url', System.getProperty('sonar.host.url')
+        property 'sonar.projectKey', System.getProperty('sonar.projectKey')
+        property 'sonar.token', System.getProperty('sonar.token')
     }
 }
 
