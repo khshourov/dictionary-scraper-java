@@ -11,14 +11,13 @@ import com.github.khshourov.dictionaryscraper.models.DictionaryEntry;
 import com.github.khshourov.dictionaryscraper.models.DictionaryWord;
 import com.github.khshourov.dictionaryscraper.models.IpaInfo;
 import com.github.khshourov.dictionaryscraper.models.WordMeaning;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class DefaultDictionaryScraperTest {
-  private static final String sourceDomain = "https://dictionary.cambridge.org";
+class DefaultDictionaryScraperTest {
+  private static final String SOURCE_DOMAIN = "https://dictionary.cambridge.org";
   private DefaultDictionaryScraper dictionaryScraper;
 
   @BeforeEach
@@ -27,14 +26,15 @@ public class DefaultDictionaryScraperTest {
   }
 
   @Test
-  void searchShouldReturnExpectedDataForValidSingleCategoryWord() throws IOException {
+  void searchShouldReturnExpectedDataForValidSingleCategoryWord() {
     String validSingleCategoryWord = "hello";
 
     DictionaryEntry expectedDictionaryEntry =
         new DictionaryEntry(
             List.of(
-                String.format("%s/pronunciation/english/%s", sourceDomain, validSingleCategoryWord),
-                String.format("%s/dictionary/english/%s", sourceDomain, validSingleCategoryWord)),
+                String.format(
+                    "%s/pronunciation/english/%s", SOURCE_DOMAIN, validSingleCategoryWord),
+                String.format("%s/dictionary/english/%s", SOURCE_DOMAIN, validSingleCategoryWord)),
             Map.of(
                 Region.US,
                 List.of(
@@ -88,13 +88,13 @@ public class DefaultDictionaryScraperTest {
   }
 
   @Test
-  void searchShouldReturnExpectedDataForMultiCategoryWord() throws IOException {
+  void searchShouldReturnExpectedDataForMultiCategoryWord() {
     String validMultiCategoryWord = "present";
     DictionaryEntry expectedDictionaryEntry =
         new DictionaryEntry(
             List.of(
-                String.format("%s/pronunciation/english/%s", sourceDomain, validMultiCategoryWord),
-                String.format("%s/dictionary/english/%s", sourceDomain, validMultiCategoryWord)),
+                String.format("%s/pronunciation/english/%s", SOURCE_DOMAIN, validMultiCategoryWord),
+                String.format("%s/dictionary/english/%s", SOURCE_DOMAIN, validMultiCategoryWord)),
             Map.of(
                 Region.US,
                 List.of(
@@ -225,7 +225,7 @@ public class DefaultDictionaryScraperTest {
   }
 
   @Test
-  void searchShouldReturnNullForNonsensicalWord() throws IOException {
+  void searchShouldReturnNullForNonsensicalWord() {
     String nonsensicalWord = "prisencolinensinainciusol";
 
     DictionaryWord dictionaryWord = dictionaryScraper.search(nonsensicalWord, BaseSource.CAMBRIDGE);

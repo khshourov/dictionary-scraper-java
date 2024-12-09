@@ -59,6 +59,9 @@ public class CambridgeReader extends Reader {
       String responseBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
 
       return new ReaderResponse(url, responseBody);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new IOException(e);
     } catch (Exception e) {
       throw new IOException(e);
     }

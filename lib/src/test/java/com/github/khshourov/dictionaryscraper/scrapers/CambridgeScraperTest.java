@@ -75,12 +75,12 @@ class CambridgeScraperTest {
 
   @Nested
   class WhenScrape {
-    private static final String sourceDomain = "https://dictionary.cambridge.org";
-    private static final String validSingleCategoryWord = "hello";
+    private static final String SOURCE_DOMAIN = "https://dictionary.cambridge.org";
+    private static final String VALID_SINGLE_CATEGORY_WORD = "hello";
 
     @BeforeEach
     void init() {
-      scraper.setReader(new MockCambridgeReader(sourceDomain));
+      scraper.setReader(new MockCambridgeReader(SOURCE_DOMAIN));
     }
 
     @Test
@@ -92,12 +92,12 @@ class CambridgeScraperTest {
     }
 
     @Test
-    void scrapeShouldReturnExpectedDataForValidSingleCategoryWord() throws IOException {
+    void scrapeShouldReturnExpectedDataForVALID_SINGLE_CATEGORY_WORD() throws IOException {
       DictionaryEntry expectedDictionaryEntry =
           new DictionaryEntry(
               List.of(
-                  String.format("%s/pronunciation/%s", sourceDomain, validSingleCategoryWord),
-                  String.format("%s/meaning/%s", sourceDomain, validSingleCategoryWord)),
+                  String.format("%s/pronunciation/%s", SOURCE_DOMAIN, VALID_SINGLE_CATEGORY_WORD),
+                  String.format("%s/meaning/%s", SOURCE_DOMAIN, VALID_SINGLE_CATEGORY_WORD)),
               Map.of(
                   Region.US,
                   List.of(
@@ -138,7 +138,7 @@ class CambridgeScraperTest {
                               "an expression of surprise:",
                               List.of("Hello, this is very strange - I know that man."))))));
 
-      DictionaryEntry actualDictionaryEntry = scraper.scrape(validSingleCategoryWord);
+      DictionaryEntry actualDictionaryEntry = scraper.scrape(VALID_SINGLE_CATEGORY_WORD);
 
       assertNotNull(actualDictionaryEntry);
 
@@ -155,8 +155,8 @@ class CambridgeScraperTest {
       DictionaryEntry expectedDictionaryEntry =
           new DictionaryEntry(
               List.of(
-                  String.format("%s/pronunciation/%sus", sourceDomain, validSingleCategoryWord),
-                  String.format("%s/meaning/%sus", sourceDomain, validSingleCategoryWord)),
+                  String.format("%s/pronunciation/%sus", SOURCE_DOMAIN, VALID_SINGLE_CATEGORY_WORD),
+                  String.format("%s/meaning/%sus", SOURCE_DOMAIN, VALID_SINGLE_CATEGORY_WORD)),
               Map.of(
                   Region.US,
                   List.of(
@@ -166,7 +166,7 @@ class CambridgeScraperTest {
                           "https://dictionary.cambridge.org/media/english/us_pron/h/hel/hello/hello.mp3"))),
               List.of());
 
-      DictionaryEntry actualDictionaryEntry = scraper.scrape(validSingleCategoryWord + "-us");
+      DictionaryEntry actualDictionaryEntry = scraper.scrape(VALID_SINGLE_CATEGORY_WORD + "-us");
 
       assertNotNull(actualDictionaryEntry);
 
@@ -181,8 +181,8 @@ class CambridgeScraperTest {
       DictionaryEntry expectedDictionaryEntry =
           new DictionaryEntry(
               List.of(
-                  String.format("%s/pronunciation/%s", sourceDomain, validMultiCategoryWord),
-                  String.format("%s/meaning/%s", sourceDomain, validMultiCategoryWord)),
+                  String.format("%s/pronunciation/%s", SOURCE_DOMAIN, validMultiCategoryWord),
+                  String.format("%s/meaning/%s", SOURCE_DOMAIN, validMultiCategoryWord)),
               Map.of(
                   Region.US,
                   List.of(
@@ -323,7 +323,7 @@ class CambridgeScraperTest {
       scraper.setReader(new TimeoutReader("timeout/reader"));
 
       Exception exception =
-          assertThrows(IOException.class, () -> scraper.scrape(validSingleCategoryWord));
+          assertThrows(IOException.class, () -> scraper.scrape(VALID_SINGLE_CATEGORY_WORD));
       assertEquals("Read timeout", exception.getMessage());
     }
   }
@@ -336,56 +336,33 @@ class CambridgeScraperTest {
       assertEquals("reader can not be null", exception.getMessage());
     }
 
-    @Test
-    void baseUriCanNotBeNull() {
-      Exception exception =
-          assertThrows(
-              IllegalStateException.class,
-              () ->
-                  scraper.setReader(
-                      new Reader() {
-                        @Override
-                        public ReaderResponse read(String word, ReadingPurpose purpose)
-                            throws IOException {
-                          return null;
-                        }
-                      }));
-      assertEquals("reader.baseUri can not be null or empty", exception.getMessage());
-    }
-
     @ParameterizedTest
     @MethodSource("invalidBaseUri")
     void readerShouldHaveValidBaseUri(String invalidBaseUri) {
-      Exception exception =
-          assertThrows(
-              IllegalStateException.class,
-              () ->
-                  scraper.setReader(
-                      new Reader() {
-                        {
-                          this.baseUri = invalidBaseUri;
-                        }
+      Reader reader =
+          new Reader() {
+            {
+              this.baseUri = invalidBaseUri;
+            }
 
-                        @Override
-                        public ReaderResponse read(String word, ReadingPurpose purpose)
-                            throws IOException {
-                          return null;
-                        }
-                      }));
+            @Override
+            public ReaderResponse read(String word, ReadingPurpose purpose) {
+              return null;
+            }
+          };
+
+      Exception exception =
+          assertThrows(IllegalStateException.class, () -> scraper.setReader(reader));
       assertEquals("reader.baseUri can not be null or empty", exception.getMessage());
     }
 
-    static Stream<Arguments> invalidBaseUri() {
-      return Stream.of(arguments(""), arguments(" "), arguments("  "));
+    static Stream<String> invalidBaseUri() {
+      return Stream.of("", " ", "  ", null);
     }
   }
 
   @Nested
   class WhenCleanWord {
-    @Test
-    void nullWordShouldConvertToEmptyString() {
-      assertEquals("", scraper.cleanWord(null));
-    }
 
     @ParameterizedTest
     @MethodSource("words")
@@ -398,7 +375,8 @@ class CambridgeScraperTest {
           arguments("Abc", "abc"),
           arguments("Abc's word", "abcsword"),
           arguments("1love!", "love"),
-          arguments("Amélie", "amlie"));
+          arguments("Amélie", "amlie"),
+          arguments(null, ""));
     }
   }
 }

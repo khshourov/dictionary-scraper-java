@@ -14,7 +14,7 @@ import com.github.khshourov.dictionaryscraper.models.WordMeaning;
 import com.github.khshourov.dictionaryscraper.readers.CambridgeReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -73,6 +73,9 @@ public class CambridgeScraper implements Scraper {
     try {
       response = this.reader.read(cleanedWord, ReadingPurpose.MEANING);
     } catch (IOException ignored) {
+      // Pronunciation is the main priority. So, even if we can't read
+      // the "meaning" doc, we can still proceed.
+      response = null;
     }
 
     List<WordMeaning> meanings = new ArrayList<>();
@@ -94,14 +97,14 @@ public class CambridgeScraper implements Scraper {
   }
 
   private Map<Region, List<IpaInfo>> extractIpaListings(String data) {
-    Map<Region, List<IpaInfo>> ipaListings = new HashMap<>();
+    Map<Region, List<IpaInfo>> ipaListings = new EnumMap<>(Region.class);
 
     Document document = Jsoup.parse(data);
     document
         .body()
         .select(".pron-block")
         .forEach(
-            (pronunciationBlock) -> {
+            pronunciationBlock -> {
               List<String> partsOfSpeeches = this.extractPartsOfSpeeches(pronunciationBlock);
               List<RegionWiseIpaInfo> regionWiseIpaInfo =
                   this.extractRegionWiseIpaInfo(pronunciationBlock);
@@ -155,7 +158,7 @@ public class CambridgeScraper implements Scraper {
   private List<RegionWiseIpaInfo> extractRegionWiseIpaInfo(Element pronunciationBlock) {
     return pronunciationBlock.select(".region-block .pron-info").stream()
         .map(
-            (regionBlock) -> {
+            regionBlock -> {
               Optional<String> region = Optional.of(regionBlock.attr("data-pron-region"));
               Optional<String> ipa =
                   Optional.ofNullable(

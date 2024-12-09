@@ -42,7 +42,7 @@ public class DefaultDictionaryScraper implements DictionaryScraper {
             } catch (InstantiationException
                 | IllegalAccessException
                 | InvocationTargetException e) {
-              throw new RuntimeException(e);
+              throw new IllegalStateException(e);
             }
           });
     }
@@ -84,8 +84,7 @@ public class DefaultDictionaryScraper implements DictionaryScraper {
 
       return new DictionaryWord(source, word, dictionaryEntry);
     } catch (IOException ignored) {
+      return null;
     }
-
-    return null;
   }
 }
