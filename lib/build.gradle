@@ -63,15 +63,15 @@ base {
 }
 
 version = '0.0.1'
-group = 'com.github.khshourov'
+group = 'io.github.khshourov'
 
 pitest {
     junit5PluginVersion = '1.2.0'
     targetClasses = [
-            'com.github.khshourov.dictionaryscraper.*'
+            'io.github.khshourov.dictionaryscraper.*'
     ] // Classes to mutate
     targetTests = [
-            'com.github.khshourov.dictionaryscraper.*'
+            'io.github.khshourov.dictionaryscraper.*'
     ]
 }
 
