@@ -23,18 +23,41 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+/**
+ * The CambridgeScraper class is an implementation of the Scraper interface that scrapes data from
+ * the Cambridge Dictionary website. It primarily extracts word pronunciations, meanings, and
+ * associated data, organizing it into a structured DictionaryEntry format for further use.
+ */
 public class CambridgeScraper implements Scraper {
   private Reader reader;
 
+  /** Initializes with default {@link CambridgeReader} instance. */
   public CambridgeScraper() {
     this.reader = new CambridgeReader("https://dictionary.cambridge.org");
   }
 
+  /**
+   * Registers the CambridgeScraper with the provided DictionaryScraper under the
+   * BaseSource.CAMBRIDGE source.
+   *
+   * @param dictionaryScraper the DictionaryScraper instance to register the scraper with
+   */
   @Override
   public void register(DictionaryScraper dictionaryScraper) {
     dictionaryScraper.registerScraper(BaseSource.CAMBRIDGE, this);
   }
 
+  /**
+   * Sets the {@code Reader} instance to be used by the scraper. The {@code Reader} is responsible
+   * for handling the data fetching and must be properly configured before being set. The method
+   * ensures that the provided {@code Reader} is not null and its properties are correctly
+   * initialized.
+   *
+   * @param reader the {@code Reader} instance to be set; must not be {@code null} and must have a
+   *     valid {@code baseUri}.
+   * @throws NullPointerException if the provided {@code reader} is {@code null}.
+   * @throws IllegalStateException if the {@code reader}'s {@code baseUri} is null or empty.
+   */
   @Override
   public void setReader(Reader reader) {
     if (reader == null) {
@@ -46,6 +69,20 @@ public class CambridgeScraper implements Scraper {
     this.reader = reader;
   }
 
+  /**
+   * Scrapes dictionary data for a given word. The process involves obtaining the word's
+   * pronunciation and meaning by interacting with a reader. If pronunciation data is successfully
+   * retrieved but meaning data cannot be fetched, the method will still proceed with the
+   * pronunciation data alone. Ensures the input word is cleaned and valid before processing.
+   *
+   * @param word the word to be scraped; must be a non-null, non-empty string containing alphabetic
+   *     characters only after cleaning
+   * @return a {@code DictionaryEntry} containing source links, IPA (pronunciation) listings, and
+   *     meanings of the word, or {@code null} if no valid data is retrieved
+   * @throws NullPointerException if the reader is not initialized
+   * @throws IllegalArgumentException if the cleaned word is empty or invalid
+   * @throws IOException if there is an error during data fetching operations
+   */
   @Override
   public DictionaryEntry scrape(String word) throws IOException {
     if (this.reader == null) {
@@ -87,6 +124,14 @@ public class CambridgeScraper implements Scraper {
     return new DictionaryEntry(sourceLinks, ipaListings, meanings);
   }
 
+  /**
+   * Cleans the input word by removing all non-alphabetic characters and converting it to lowercase.
+   * If the input word is null, an empty string is returned.
+   *
+   * @param word the input word that needs to be cleaned; may be null
+   * @return the cleaned version of the word containing only lowercase alphabetic characters, or an
+   *     empty string if the input is null
+   */
   @Override
   public String cleanWord(String word) {
     if (word == null) {
