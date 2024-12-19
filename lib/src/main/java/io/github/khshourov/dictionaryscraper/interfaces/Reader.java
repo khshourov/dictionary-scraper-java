@@ -24,7 +24,27 @@ import java.io.IOException;
  * various sources.
  */
 public abstract class Reader {
+  /** the base URI of the online dictionary. */
   protected String baseUri;
+
+  /**
+   * Creates a new instance of the {@code Reader} class with no base URI specified. This constructor
+   * is typically used when the base URI will be set or defined later.
+   *
+   * <p>Subclasses of {@code Reader} can utilize this constructor to initialize the abstract reader
+   * without providing immediate configuration details for the data source.
+   */
+  public Reader() {}
+
+  /**
+   * Initializes a new instance of the {@code Reader} class with the specified base URI.
+   *
+   * @param baseUri The base URI to be associated with this reader, typically representing the
+   *     starting point for resource lookups.
+   */
+  public Reader(String baseUri) {
+    this.baseUri = baseUri;
+  }
 
   /**
    * Retrieves the base URI associated with the reader.

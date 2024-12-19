@@ -7,13 +7,10 @@ import io.github.khshourov.dictionaryscraper.interfaces.Source;
  * Represents a word retrieved from a dictionary source along with its corresponding dictionary
  * entry.
  *
- * <p>This record encapsulates the following: - `source`: The source from which the dictionary word
- * and its details are fetched. - `searchWord`: The word that was searched in the dictionary. -
- * `entry`: The dictionary entry corresponding to the searched word, containing details such as
- * pronunciations, meanings, and usage examples.
- *
- * <p>Features: - Provides a method, `toJson`, to convert the DictionaryWord record into a JSON
- * representation.
+ * @param source The source from which the dictionary word and its details are fetched.
+ * @param searchWord The word that was searched in the dictionary.
+ * @param entry The dictionary entry corresponding to the searched word, containing details such as
+ *     pronunciations, meanings, and usage examples.
  */
 public record DictionaryWord(Source source, String searchWord, DictionaryEntry entry) {
   /**

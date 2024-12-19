@@ -16,6 +16,20 @@ package io.github.khshourov.dictionaryscraper.enums;
  * process.
  */
 public enum Region {
+  /**
+   * Represents the United States region in the context of regional IPA (International Phonetic
+   * Alphabet) differences and associated dictionary data.
+   *
+   * <p>Used to categorize data and distinguish region-specific variations, such as those found in
+   * American English.
+   */
   US,
+  /**
+   * Represents the United Kingdom region in the context of regional IPA (International Phonetic
+   * Alphabet) differences and associated dictionary data.
+   *
+   * <p>Used to categorize data and distinguish region-specific variations, such as those found in
+   * British English.
+   */
   UK
 }

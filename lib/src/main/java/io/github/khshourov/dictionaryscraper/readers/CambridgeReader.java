@@ -29,7 +29,7 @@ public class CambridgeReader extends Reader {
    * @param baseUri the baseUri of the online dictionary.
    */
   public CambridgeReader(String baseUri) {
-    this.baseUri = baseUri;
+    super(baseUri);
   }
 
   /**

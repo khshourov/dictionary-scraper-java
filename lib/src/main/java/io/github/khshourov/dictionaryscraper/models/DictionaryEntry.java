@@ -5,16 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents an entry in the dictionary, containing comprehensive details about a word.
+ * Represents an entry in the dictionary for a specific word, containing its source links, phonetic
+ * information, and meanings.
  *
- * <p>This record is composed of three main attributes:
- *
- * <p>- `sourceLinks`: A collection of URL links or references from which the data about this entry
- * was obtained. - `ipaListings`: A mapping of regions (e.g., US, UK) to lists of IPA (International
- * Phonetic Alphabet) information describing the pronunciation of the word in those regions. Each
- * IPA entry may include phonetic representations, corresponding audio links, and related
- * categories. - `meanings`: A collection of meanings for the word, categorized by grammatical or
- * contextual usage. Each meaning may include specific definitions and relevant example usages.
+ * @param sourceLinks Collection of links from which the word's dictionary data has been sourced.
+ * @param ipaListings A mapping of regions (e.g., US, UK) to their respective lists of International
+ *     Phonetic Alphabet (IPA) details. Each IPA entry provides category, pronunciation, and
+ *     optional audio.
+ * @param meanings A list of word meanings categorized based on grammatical or contextual usage,
+ *     including examples.
  */
 public record DictionaryEntry(
     List<String> sourceLinks, Map<Region, List<IpaInfo>> ipaListings, List<WordMeaning> meanings) {}

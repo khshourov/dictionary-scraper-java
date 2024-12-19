@@ -19,6 +19,7 @@ import io.github.khshourov.dictionaryscraper.interfaces.Source;
  */
 @SuppressWarnings("java:S6548")
 public enum BaseSource implements Source {
+  /** Represents the Cambridge dictionary. */
   CAMBRIDGE;
 
   @Override
