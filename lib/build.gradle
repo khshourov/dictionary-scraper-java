@@ -28,6 +28,10 @@ plugins {
 
     // To help analyzing projects with SonarQube
     alias libs.plugins.sonarqube
+
+    // Plugin for publishing into maven central
+    alias libs.plugins.maven.publish
+    alias libs.plugins.jreleaser
 }
 
 repositories {
@@ -62,7 +66,7 @@ base {
     archivesName = rootProject.name
 }
 
-version = '0.1.0'
+version = '1.0.0'
 group = 'io.github.khshourov'
 
 pitest {
@@ -153,4 +157,63 @@ testing {
 
 tasks.named('check') {
     dependsOn(testing.suites.integrationTest)
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.github.khshourov'
+            artifactId = 'dictionaryscraper'
+
+            from components.java
+
+            pom {
+                name = 'Dictionary Scraper'
+                description = 'Scrape dictionaries such as Cambridge and Oxford to generate structured data for a given word search'
+                url = 'https://github.com/khshourov/dictionary-scraper-java'
+                inceptionYear = '2024'
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'https://github.com/khshourov/dictionary-scraper-java/blob/main/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'khshourov'
+                        name = 'Kamrul H Shourov'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/khshourov/dictionary-scraper-java.git'
+                    developerConnection = 'scm:git:git@github.com:khshourov/dictionary-scraper-java.git'
+                    url = 'https://github.com/khshourov/dictionary-scraper-java'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+jreleaser {
+    signing {
+        active = 'ALWAYS'
+        armored = true
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('target/staging-deploy')
+                }
+            }
+        }
+    }
 }

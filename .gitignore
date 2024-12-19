@@ -28,3 +28,6 @@ build
 
 # Contains SonarQube project-key, token etc
 gradle.properties
+
+# Secrets store for publishing to maven-central
+.jreleaser
