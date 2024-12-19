@@ -128,7 +128,7 @@ class DefaultDictionaryScraperTest {
 
     @Test
     void nullShouldBeReturnIfWordIsNotFound() {
-      String notFoundWord = "not-found-word";
+      final String notFoundWord = "not-found-word";
       MockScraper mockScraper = new MockScraper();
       mockScraper.setSource(MockSource.MOCK_SOURCE_1);
       mockScraper.register(dictionaryScraper);
@@ -164,7 +164,8 @@ class DefaultDictionaryScraperTest {
                           new CategoryMeaningEntry(
                               "something that is said at the beginning of a phone conversation:",
                               List.of(
-                                  "\"Hello, I'd like some information about flights to the US, please.\""))))));
+                                  "\"Hello, I'd like some information about flights to the US, "
+                                      + "please.\""))))));
 
       MockScraper mockScraper = new MockScraper();
       mockScraper.setSource(MockSource.MOCK_SOURCE_1);

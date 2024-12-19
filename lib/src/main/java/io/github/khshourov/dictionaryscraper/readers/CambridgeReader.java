@@ -56,7 +56,8 @@ public class CambridgeReader extends Reader {
               .uri(URI.create(url))
               .header(
                   "User-Agent",
-                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0")
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) "
+                      + "Gecko/20100101 Firefox/131.0")
               .header(
                   "Accept",
                   "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,"

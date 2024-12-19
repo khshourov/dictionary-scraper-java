@@ -42,7 +42,9 @@ class DictionaryWordTest {
                   "noun",
                   List.of(
                       new CategoryMeaningEntry(
-                          "something that you are given, without asking for it, on a special occasion, especially to show friendship, or to say thank you:",
+                          "something that you are given, without asking for it, "
+                              + "on a special occasion, especially to show friendship, "
+                              + "or to say thank you:",
                           List.of(
                               "a birthday/Christmas/wedding present",
                               "They gave me theatre tickets as a present."))))));
