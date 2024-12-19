@@ -1,0 +1,16 @@
+JRELEASER_GITHUB_TOKEN = "<github-token>"
+JRELEASER_MAVENCENTRAL_USERNAME = "<maven-central-username>"
+JRELEASER_MAVENCENTRAL_PASSWORD = "<maven-central-password>"
+JRELEASER_GPG_PASSPHRASE = "<gpg-passphrase>"
+
+JRELEASER_GPG_PUBLIC_KEY="""-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+<contents-of-your-public-key>
+
+-----END PGP PUBLIC KEY BLOCK-----"""
+
+JRELEASER_GPG_SECRET_KEY="""-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+<contents-of-your-private-key>
+
+-----END PGP PRIVATE KEY BLOCK-----"""

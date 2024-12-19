@@ -201,6 +201,16 @@ publishing {
 }
 
 jreleaser {
+    gitRootSearch = true
+    environment {
+        variables = '../.jreleaser/config.toml'
+    }
+    project {
+        name = rootProject.name
+        java {
+            artifactId = 'dictionaryscraper'
+        }
+    }
     signing {
         active = 'ALWAYS'
         armored = true
@@ -211,7 +221,7 @@ jreleaser {
                 sonatype {
                     active = 'ALWAYS'
                     url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('target/staging-deploy')
+                    stagingRepository('build/staging-deploy')
                 }
             }
         }

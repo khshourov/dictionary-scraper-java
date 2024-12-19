@@ -30,4 +30,4 @@ build
 gradle.properties
 
 # Secrets store for publishing to maven-central
-.jreleaser
+.jreleaser/config.toml
